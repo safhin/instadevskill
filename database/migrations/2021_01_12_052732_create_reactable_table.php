@@ -15,9 +15,8 @@ class CreateReactableTable extends Migration
     {
         Schema::create('reactable', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('reaction_id')->constrained();
-            $table->string('reactable_type');
-            $table->integer('reactable_id');
+            $table->foreignId('reaction_id')->constrained()->cascadeOnDelete();
+            $table->morphs('reactable');
             $table->timestamps();
         });
     }

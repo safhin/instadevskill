@@ -15,9 +15,11 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('post_id')->constrained();
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('post_id');
             $table->text('comment');
+            $table->unsignedInteger('commentable_id');
+            $table->string('commentable_type');
             $table->timestamps();
         });
     }
@@ -29,10 +31,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['post_id']);
-        });
         Schema::dropIfExists('comments');
     }
 }
